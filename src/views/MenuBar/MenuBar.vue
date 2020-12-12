@@ -1,7 +1,7 @@
 <template>
     <div class="menu-bar-container">
         <!-- logo -->
-        <div class="logo" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'">
+        <div class="logo" :style="{'background-color':themeColor}"  :class="collapse?'menu-bar-collapse-width':'menu-bar-width'">
             <img src="@/assets/logo.png"/> <div>{{collapse?'':appName}}</div>
         </div>
         <!-- 导航菜单 -->
@@ -57,7 +57,8 @@ export default {
     computed:{
         ...mapState({
             appName: state=>state.app.appName,
-            collapse: state=>state.app.collapse
+            collapse: state=>state.app.collapse,
+            themeColor: state=>state.app.themeColor,
         })
     }
 };
