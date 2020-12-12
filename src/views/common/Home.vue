@@ -21,6 +21,15 @@
         </div>
       </el-col>
       <el-col :span="5" class="userinfo">
+        <el-dropdown @command="handleCommand">
+          <span class="el-dropdown-link lang-inner">
+            <span id="language">中文</span><i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="zh">中文</el-dropdown-item>
+            <el-dropdown-item command="en">English</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner"><img :src="this.userAvatar" /> {{username}}</span>
           <el-dropdown-menu slot="dropdown">
@@ -40,9 +49,11 @@
               <i class="el-icon-location"></i>
               <span slot="title">系统管理</span>
             </template>
-            <el-menu-item index="1-1" @click="$router.push('user')">用户管理</el-menu-item>
-            <el-menu-item index="1-2" @click="$router.push('menu')">菜单管理</el-menu-item>
-            <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item index="1-1" @click="$router.push('user')">{{$t("sys.userMng")}}</el-menu-item>
+            <el-menu-item index="1-2" @click="$router.push('dept')">{{$t("sys.deptMng")}}</el-menu-item>
+            <el-menu-item index="1-3" @click="$router.push('role')">{{$t("sys.roleMng")}}</el-menu-item>
+            <el-menu-item index="1-4" @click="$router.push('menu')">{{$t("sys.menuMng")}}</el-menu-item>
+            <el-menu-item index="1-5" @click="$router.push('log')">{{$t("sys.logMng")}}</el-menu-item>
           </el-submenu>
           <el-menu-item index="2">
             <i class="el-icon-menu"></i>
@@ -106,6 +117,11 @@
       handleSelectHearNavBar(key, keyPath) {
         console.log(key, keyPath)
       },
+      // 语言切换
+      handleCommand(command) {
+        let lang = command === '' ? 'zh' : command
+        this.$i18n.locale = lang
+      },
       //折叠导航栏
       collapse: function() {
         this.isCollapse = !this.isCollapse;
@@ -152,9 +168,15 @@
         text-align: right;
         padding-right: 30px;
         float: right;
+        .lang-inner {
+          font-size: 15px;
+          cursor: pointer;
+          color: #fff;
+        }
         .userinfo-inner {
           font-size: 20px;
           cursor: pointer;
+          padding-left: 15px;
           color: #fff;
           img {
             width: 40px;
