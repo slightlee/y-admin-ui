@@ -2,9 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Home from '@/views/common/Home'
-import Main from '@/views/Main'
-import User from '@/views/User'
-import Menu from '@/views/Menu'
+import Intro from '@/views/common/Intro'
+import User from '@/views/SysMng/User'
+import Dept from '@/views/SysMng/Dept'
+import Role from '@/views/SysMng/Role'
+import Menu from '@/views/SysMng/Menu'
+import Log from '@/views/SysMng/Log'
 
 
 Vue.use(VueRouter)
@@ -15,9 +18,12 @@ const routes = [
     name: '首页',
     component: Home,
     children: [
-      { path: '/main', component: Main, name: '系统介绍' },
+      { path: '', component: Intro, name: '系统介绍' },
       { path: '/user', component: User, name: '用户管理' },
-      { path: '/menu', component: Menu, name: '菜单管理' }
+      { path: '/dept', component: Dept, name: '机构管理' },
+      { path: '/role', component: Role, name: '角色管理' },
+      { path: '/menu', component: Menu, name: '菜单管理' },
+      { path: '/log', component: Log, name: '日志管理' }
     ]
   },
   {
@@ -43,7 +49,7 @@ router.beforeEach((to, from, next) => {
   let user = sessionStorage.getItem('user')
   if (to.path === '/login') {
     // 如果是访问登录界面，如果用户会话信息存在，代表已登录过，跳转到主页
-    if(token) {
+    if(user) {
       next({ path: '/' })
     } else {
       next()
