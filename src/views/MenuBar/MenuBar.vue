@@ -1,11 +1,12 @@
 <template>
     <div class="menu-bar-container">
         <!-- logo -->
-        <div class="logo" :class="isCollapse?'menu-bar-collapse-width':'menu-bar-width'">
-            <img :src="this.logo" /> <div>{{isCollapse?'':sysName}}</div>
+        <div class="logo" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'">
+            <img src="@/assets/logo.png"/> <div>{{collapse?'':appName}}</div>
         </div>
         <!-- 导航菜单 -->
-        <el-menu default-active="1-1" :class="isCollapse?'menu-bar-collapse-width':'menu-bar-width'" @open="handleopen" @close="handleclose" @select="handleselect" :collapse="isCollapse">
+        <el-menu default-active="1-1" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'" @open="handleopen"
+                 @close="handleclose" @select="handleselect" :collapse="collapse">
             <el-submenu index="1">
                 <template slot="title">
                     <i class="el-icon-location"></i>
@@ -36,30 +37,30 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                isCollapse: false,
-                sysName: "",
-                logo: "",
-            };
+import { mapState } from 'vuex'
+export default {
+    data() {
+        return {
+        };
+    },
+    methods: {
+        handleopen() {
+            console.log('handleopen');
         },
-        methods: {
-            handleopen() {
-                console.log('handleopen');
-            },
-            handleclose() {
-                console.log('handleclose');
-            },
-            handleselect(a, b) {
-                console.log('handleselect');
-            }
+        handleclose() {
+            console.log('handleclose');
         },
-        mounted() {
-            this.sysName = "I like Kitty";
-            this.logo = require("@/assets/logo.png");
+        handleselect(a, b) {
+            console.log('handleselect');
         }
-    };
+    },
+    computed:{
+        ...mapState({
+            appName: state=>state.app.appName,
+            collapse: state=>state.app.collapse
+        })
+    }
+};
 </script>
 
 <style scoped lang="scss">
